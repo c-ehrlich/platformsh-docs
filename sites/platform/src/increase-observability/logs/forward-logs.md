@@ -222,6 +222,14 @@ Note that if your endpoint URL includes a `PORT`, that can also be included in t
 {{% vendor/cli %}} integration:add --type httplog --url "https://{{< variable "ELASTICSEARCH_URL" >}}:{{< variable "PORT" >}}/{{< variable "INDEX_NAME" >}}/_doc" --header "Authorization: Basic <basic_auth_token>" --header "Content-Type: application/json"
 ```
 
+To forward logs to [Axiom](https://axiom.co/docs/restapi/ingest), send them to the Axiom ingest endpoint of your dataset.
+Replace `AXIOM_DOMAIN` with your Axiom edge domain, such as `us-east-1.aws.edge.axiom.co` or `eu-central-1.aws.edge.axiom.co`.
+Use an Axiom API token that can ingest data into the dataset:
+
+```
+{{% vendor/cli %}} integration:add --type httplog --url "https://{{< variable "AXIOM_DOMAIN" >}}/v1/ingest/{{< variable "DATASET_NAME" >}}" --header "Authorization: Bearer {{< variable "API_TOKEN" >}}" --header "Content-Type: application/json"
+```
+
 Once you've [added the service](/add-services/_index.md),
 to start forwarding logs [trigger a redeploy](/development/troubleshoot.md#force-a-redeploy).
 
